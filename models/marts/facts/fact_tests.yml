@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+    
+  - name: fct_order_items
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          
+      - name: order_item_id
+        tests:
+          - not_null    
+          
+      - name: product_id
+        tests:
+          - not_null
+        

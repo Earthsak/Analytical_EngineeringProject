@@ -7,6 +7,11 @@ models:
         tests:
           - not_null
           - unique
+
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
     
   - name: fct_order_items
     columns:
@@ -21,4 +26,22 @@ models:
       - name: product_id
         tests:
           - not_null
-        
+    
+  - name: fct_daily_revenue
+    columns:
+      - name: total_orders
+        tests:
+          - not_null
+          - unique
+          
+      - name: product_revenue
+        tests:
+          - not_null    
+    
+    
+  - name: mart_model
+    columns:
+      - name: order_date
+        tests:
+          - not_null
+          - unique

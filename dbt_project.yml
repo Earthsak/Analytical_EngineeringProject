@@ -39,3 +39,7 @@ models:
     marts:
       +materialized: table
       +schema: analytics_engineering_mart
+    
+    intermediate:
+      +materialized: table
+      +schema: analytics_engineering_int

@@ -61,9 +61,9 @@ Translated technical corrections into business-relevant insights
 🛠️ Tech Stack
 
 BigQuery
-dbt
-SQL
-
+ dbt
+ SQL
+ Power BI
 
 
 ### Resources:
@@ -74,4 +74,5 @@ SQL
 - Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
 
 
-Power BI
+
+

@@ -1,78 +1,21 @@
-Welcome to your new dbt project!
+## Payment Intelligence — Fixing Misleading Metrics
 
-### Using the starter project
+An end-to-end analytics engineering project built with dbt Core and BigQuery (GCP), demonstrating production-grade data modeling, automated data quality testing, and metric validation.
 
-Try running the following commands:
-- dbt run
-- dbt test
+### Problem
+Standard BI dashboards reported Average Order Value (AOV) correctly — but the underlying data had a silent data failure. Payment-level aggregation was being mixed with order-level grain, inflating the AOV metric by ~16% and masking true discount behavior.
 
-📊 Payment Intelligence: Fixing Misleading Metrics in E-commerce
+### Solution
+Built a layered ELT pipeline (staging → intermediate → mart) using dbt Core with:
+- Automated schema tests (not_null, unique, accepted_values) for data unit testing
+- Cross-pipeline reconciliation checks for data observability
+- Grain-level validation to detect join duplication and aggregation errors
+- Documented data lineage across all transformation layers
 
-🚨 Problem
+### Key findings
+- Corrected ~16% AOV miscalculation caused by payment-level vs. order-level grain mismatch
+- Discovered ~65% of voucher revenue came from mixed-payment users — not voucher-only users
+- Revealed discount strategy was being misinterpreted due to silent data failure in upstream aggregation
 
-Most dashboards analyze payment behavior using incomplete metrics.
-
-Voucher usage appears high when measured by % of orders
-But this hides the real impact on revenue and order value
-
-Additionally, Average Order Value (AOV) is often calculated incorrectly at the payment level, leading to distorted insights.
-
-🔍 What I Did
-
-Built an end-to-end analytics pipeline using dbt + BigQuery
-Modeled data across staging → intermediate → mart layers
-Validated metric correctness and resolved aggregation & grain issues
-Designed transformations to ensure accurate order-level analysis
-
-
-⚠️ Key Issues Identified
-
-Misleading Voucher Metrics
-High order usage ≠ high revenue contribution
-Incorrect AOV Calculation
-Payment-level aggregation inflated AOV
-Fixed by shifting to order-level grain
-Complex Payment Behavior
-Orders frequently use multiple payment types
-
-
-📈 Key Insights
-
-Voucher orders have ~16% lower AOV compared to non-voucher orders
-Voucher-driven orders account for ~3.9% of orders but only ~3.3% of revenue
-~65% of voucher revenue comes from mixed payment users (voucher + credit card)
-Vouchers act as a discount layer, not just a standalone payment method
-
-
-🏗️ Data Model
-
-Staging Layer: Cleaned raw payment and order data
-Intermediate Layer: Aggregated order-level metrics and payment combinations
-Mart Layer: Business-ready datasets for analysis
-
-
-✅ Key Outcomes
-
-Improved metric accuracy by fixing aggregation logic
-Ensured 100% revenue reconciliation across layers
-Translated technical corrections into business-relevant insights
-
-
-🛠️ Tech Stack
-
-BigQuery
- dbt
- SQL
- Power BI
-
-
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
-
-
-
-
+### Tech stack
+dbt Core · BigQuery · GCP · Advanced SQL (CTEs, window functions, aggregations) · Git · Python
